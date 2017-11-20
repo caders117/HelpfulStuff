@@ -1,0 +1,22 @@
+/**
+	 * Deals with hiDPI swing scaling problems
+	 * Taken from http://stackoverflow.com/questions/26877517/java-swing-on-high-dpi-screen
+	 */
+	public static void setDefaultSize(int size) {
+	
+		Set<Object> keySet = UIManager.getLookAndFeelDefaults().keySet();
+		Object[] keys = keySet.toArray(new Object[keySet.size()]);
+		
+		for (Object key : keys) {
+			
+			if (key != null && key.toString().toLowerCase().contains("font")) {
+				
+				//System.out.println(key);
+				Font font = UIManager.getDefaults().getFont(key);
+				if (font != null) {
+				font = font.deriveFont((float)size);
+				UIManager.put(key, font);
+				}
+			}
+		}
+	}
